@@ -1,7 +1,3 @@
-//var horizontalDistance = 740;
-
-const image = document.getElementById('player');
-
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 
@@ -16,7 +12,9 @@ const player = {
 };
 
 function drawPlayer(){
-	ctx.drawImage(image, player.x, player.y, player.w, player.h);
+	ctx.beginPath();
+	ctx.rect(player.x, player.y, player.w, player.h);
+	ctx.stroke();
 }
 
 function clear(){
@@ -39,28 +37,14 @@ function detectWalls(){
 	if (player.x + player.w > canvas.width){
 		player.x = canvas.width - player.w;
 	}
-	// Top
-	//if (player.y < 0){
-	//	player.y = 0;
-	//}
-	// Bottom
-	//if (player.y + player.h > canvas.height){
-	//	player.y = canvas.height - player.w;
-	//}
 }
 
 function update(){
-
 	clear();
-
 	drawPlayer();
-
 	newPos();
-
 	requestAnimationFrame(update);
 }
-
-
 
 function moveRight(){
 	player.dx = player.speed;
@@ -96,9 +80,3 @@ update();
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
-
-
-
-
-
-
