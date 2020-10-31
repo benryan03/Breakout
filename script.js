@@ -8,8 +8,8 @@ var ctx = canvas.getContext("2d");
 const player = {
 	w: 40,
 	h: 40,
-	x: 20,
-	y: 20,
+	x: 0,
+	y: 560,
 	speed: 10,
 	dx: 0,
 	dy: 0
@@ -40,13 +40,13 @@ function detectWalls(){
 		player.x = canvas.width - player.w;
 	}
 	// Top
-	if (player.y < 0){
-		player.y = 0;
-	}
+	//if (player.y < 0){
+	//	player.y = 0;
+	//}
 	// Bottom
-	if (player.y + player.h > canvas.height){
-		player.y = canvas.height - player.w;
-	}
+	//if (player.y + player.h > canvas.height){
+	//	player.y = canvas.height - player.w;
+	//}
 }
 
 function update(){
@@ -60,13 +60,7 @@ function update(){
 	requestAnimationFrame(update);
 }
 
-function moveUp(){
-	player.dy = -player.speed;
-}
 
-function moveDown(){
-	player.dy = player.speed;
-}
 
 function moveRight(){
 	player.dx = player.speed;
@@ -84,12 +78,6 @@ function keyDown(e){
 	else if (e.key == 'ArrowLeft' || e.key == 'Left'){
 		moveLeft();
 	}
-	else if (e.key == 'ArrowUp' || e.key == 'Up'){
-		moveUp();
-	}
-	else if (e.key == 'ArrowDown' || e.key == 'Down'){
-		moveDown();
-	}
 }
 
 function keyUp(e){
@@ -97,11 +85,7 @@ function keyUp(e){
 		e.key == 'Right' ||
 		e.key == 'ArrowRight' ||
 		e.key == 'Left' ||
-		e.key == 'ArrowLeft' ||
-		e.key == 'Up' ||
-		e.key == 'ArrowUp' ||
-		e.key == 'Down' ||
-		e.key == 'ArrowDown'
+		e.key == 'ArrowLeft'
 	){
 		player.dx = 0;
 		player.dy = 0;
