@@ -2,10 +2,10 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 
 const player = {
-	w: 40,
-	h: 40,
+	w: 160,
+	h: 20,
 	x: 0,
-	y: 560,
+	y: 580,
 	speed: 10,
 	dx: 0,
 	dy: 0
@@ -15,6 +15,8 @@ function drawPlayer(){
 	ctx.beginPath();
 	ctx.rect(player.x, player.y, player.w, player.h);
 	ctx.stroke();
+	ctx.fillStyle = "blue";
+	ctx.fill();
 }
 
 function clear(){
