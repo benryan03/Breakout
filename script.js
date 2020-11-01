@@ -19,25 +19,24 @@ function drawPlayer(){
 	ctx.fill();
 }
 
-const block1 = {w: 95, h: 20, x: 5, y: 5}
-const block2 = {w: 95, h: 20, x: 105, y: 5}
-const block3 = {w: 95, h: 20, x: 205, y: 5}
-const block4 = {w: 95, h: 20, x: 305, y: 5}
-const block5 = {w: 95, h: 20, x: 405, y: 5}
-const block6 = {w: 95, h: 20, x: 505, y: 5}
-const block7 = {w: 95, h: 20, x: 605, y: 5}
-const block8 = {w: 90, h: 20, x: 705, y: 5}
+// [w, h, x, y]
+var blocks = [
+	[95, 20, 5, 5],
+	[95, 20, 105, 5],
+	[95, 20, 205, 5],
+	[95, 20, 305, 5],
+	[95, 20, 405, 5],
+	[95, 20, 505, 5],
+	[95, 20, 605, 5],
+	[90, 20, 705, 5]
+];
 
 function drawBlocks(){
 	ctx.beginPath();
-	ctx.rect(block1.x, block1.y, block1.w, block1.h);
-	ctx.rect(block2.x, block2.y, block2.w, block2.h);
-	ctx.rect(block3.x, block3.y, block3.w, block3.h);
-	ctx.rect(block4.x, block4.y, block4.w, block4.h);
-	ctx.rect(block5.x, block5.y, block5.w, block5.h);
-	ctx.rect(block6.x, block6.y, block6.w, block6.h);
-	ctx.rect(block7.x, block7.y, block7.w, block7.h);
-	ctx.rect(block8.x, block8.y, block8.w, block8.h);
+
+	blocks.forEach(x => {
+		ctx.rect(x[2], x[3], x[0], x[1])
+	});
 
 	ctx.stroke();
 	ctx.fillStyle = "red";
