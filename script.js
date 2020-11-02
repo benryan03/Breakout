@@ -91,6 +91,7 @@ function newPos(){
 
 	ball.x += ball.dx;
 	ball.y += ball.dy;
+	checkBlockCollision();
 }
 
 function detectWalls(){
@@ -111,13 +112,14 @@ function detectWalls(){
 		ball.dx *= -1
 	}
 	// Top wall
-	if (ball.y - ball.size < 0){
+	if (ball.y - (ball.size*2) < 0){
 		ball.dy *= -1;
 	}
 
 	// Bottom wall
 	if (ball.y + ball.size > canvas.height){
-	//	ball.dy *= -1;
+		// Lose a life
+		//ball.dy *= -1;
 	}
 
 	// Detect player
@@ -163,6 +165,17 @@ function keyUp(e){
 	){
 		player.dx = 0;
 		player.dy = 0;
+	}
+}
+
+function checkBlockCollision(){
+	for (x = 0; x < blocks.length; x++){
+		// Top
+		if (ball.y - ball.size*3 < blocks[x][3]){
+			ball.dy *= -1;
+			console.log("test");
+			break;
+		}
 	}
 }
 
