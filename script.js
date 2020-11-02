@@ -5,11 +5,19 @@ const player = {
 	w: 160,
 	h: 20,
 	x: 0,
-	y: 580,
+	y: 575,
 	speed: 10,
 	dx: 0,
 	dy: 0
 };
+
+const ball = {
+	x: 10,
+	y: 200,
+	size: 10,
+	dx: 5,
+	dy: 5
+}
 
 function drawPlayer(){
 	ctx.beginPath();
@@ -19,16 +27,45 @@ function drawPlayer(){
 	ctx.fill();
 }
 
+function drawBall(){
+	ctx.beginPath();
+	ctx.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2);
+	ctx.stroke();
+	ctx.fillStyle = "green";
+	ctx.fill();
+}
+
 // [w, h, x, y]
 var blocks = [
-	[95, 20, 5, 5],
+	// Row 1
+	[95, 20, 005, 5],
 	[95, 20, 105, 5],
 	[95, 20, 205, 5],
 	[95, 20, 305, 5],
 	[95, 20, 405, 5],
 	[95, 20, 505, 5],
 	[95, 20, 605, 5],
-	[90, 20, 705, 5]
+	[90, 20, 705, 5],
+
+	// Row 2
+	[95, 20, 005, 30],
+	[95, 20, 105, 30],
+	[95, 20, 205, 30],
+	[95, 20, 305, 30],
+	[95, 20, 405, 30],
+	[95, 20, 505, 30],
+	[95, 20, 605, 30],
+	[90, 20, 705, 30],
+
+	// Row 3
+	[95, 20, 005, 55],
+	[95, 20, 105, 55],
+	[95, 20, 205, 55],
+	[95, 20, 305, 55],
+	[95, 20, 405, 55],
+	[95, 20, 505, 55],
+	[95, 20, 605, 55],
+	[90, 20, 705, 55]
 ];
 
 function drawBlocks(){
@@ -50,8 +87,10 @@ function clear(){
 function newPos(){
 	player.x += player.dx;
 	player.y += player.dy;
-
 	detectWalls();
+
+	ball.x += ball.dx;
+	ball.y += ball.dy;
 }
 
 function detectWalls(){
@@ -63,10 +102,34 @@ function detectWalls(){
 	if (player.x + player.w > canvas.width){
 		player.x = canvas.width - player.w;
 	}
+
+
+
+	// Ball
+	// Side walls
+	if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0){
+		ball.dx *= -1
+	}
+	// Top wall
+	if (ball.y - ball.size < 0){
+		ball.dy *= -1;
+	}
+
+	// Bottom wall
+	if (ball.y + ball.size > canvas.height){
+	//	ball.dy *= -1;
+	}
+
+	// Detect player
+	if (ball.y + ball.size >= player.y && ball.x + ball.size > player.x && ball.x + ball.size < player.x + player.w){
+		ball.dy *= -1;
+	}
+
 }
 
 function update(){
 	clear();
+	drawBall();
 	drawBlocks();
 	drawPlayer();
 	newPos();
