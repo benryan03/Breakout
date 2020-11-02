@@ -66,11 +66,6 @@ var blocks = [
 	[95, 20, 505, 55, true],
 	[95, 20, 605, 55, true],
 	[90, 20, 705, 55, true]
-	
-
-	//[650, 20, 0, 100, true] //test
-
-
 ];
 
 function drawBlocks(){
@@ -180,22 +175,58 @@ function checkBlockCollision(){
 		// Bottom edge of block
 		if 
 		(
-			//[650, 20, 0, 100, true] //test
-			ball.y - ball.size == blocks[x][3] + blocks[x][1] &&	// Top "point" of ball is above block bottom edge
+			ball.y - ball.size == blocks[x][3] + blocks[x][1] &&	// Top "point" of ball is at block bottom edge
 			ball.x - ball.size >= blocks[x][2] && 					// Top "point" of ball is right of left side of block
 			ball.x - ball.size <= blocks[x][2] + blocks[x][0] && 	// Top "point" of ball is left of right side of block
 			blocks[x][4] == true									// Block was visible
 		)
 		{
-			console.log("test");
 			ball.dy *= -1;
 			blocks[x][4] = false;
 			break;
 		}
 
-		
 		// Top edge of block
+		if 
+		(
+			ball.y + ball.size == blocks[x][3] &&					// Bottom "point" of ball is at block top edge
+			ball.x + ball.size >= blocks[x][2] && 					// Bottom "point" of ball is right of left side of block
+			ball.x + ball.size <= blocks[x][2] + blocks[x][0] && 	// Bottom "point" of ball is left of right side of block
+			blocks[x][4] == true									// Block was visible
+		)
+		{
+			ball.dy *= -1;
+			blocks[x][4] = false;
+			break;
+		}
 
+		// Left edge of block
+		if 
+		(
+			ball.x + ball.size == blocks[x][2] &&					// Right "point" of ball is at block left edge
+			ball.x + ball.size >= blocks[x][3] && 					// Right "point" of ball is below block top edge
+			ball.x + ball.size <= blocks[x][3] + blocks[x][1] && 	// Right "point" of ball is above block bottom edge
+			blocks[x][4] == true									// Block was visible
+		)
+		{
+			ball.dy *= -1;
+			blocks[x][4] = false;
+			break;
+		}
+
+		// Right edge of block
+		if 
+		(
+			ball.x - ball.size == blocks[x][0] &&					// Left "point" of ball is at block right edge
+			ball.x - ball.size >= blocks[x][3] && 					// Left "point" of ball is below block top edge
+			ball.x - ball.size <= blocks[x][3] + blocks[x][1] && 	// Left "point" of ball is above block bottom edge
+			blocks[x][4] == true									// Block was visible
+		)
+		{
+			ball.dy *= -1;
+			blocks[x][4] = false;
+			break;
+		}
 	}
 }
 
