@@ -125,8 +125,24 @@ function detectWalls(){
 	}
 
 	// Detect player
-	if (ball.y + ball.size >= player.y && ball.x + ball.size > player.x && ball.x + ball.size < player.x + player.w){
+	if 
+	(
+		ball.y + ball.size == player.y && 			// Bottom edge of ball is top edge of player
+		ball.x + ball.size > player.x && 			// 
+		ball.x + ball.size < player.x + player.w	// 
+	)
+	{
 		ball.dy *= -1;
+		var ballPos = (ball.x);
+		var playerCenter = player.x + (player.w / 2);
+
+		var ballOffset = (ballPos - playerCenter) / (player.w / 2);
+		ball.dx = ballOffset * 5; 	// Change angle
+		ball.dx.toFixed(2);
+		console.log(ball.dx);
+
+
+
 	}
 
 }
