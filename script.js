@@ -35,7 +35,7 @@ function drawBall(){
 	ctx.fill();
 }
 
-// [w, h, x, y]
+// [w, h, x, y, visible]
 var blocks = [
 	// Row 1
 	[95, 20, 005, 5, true],
@@ -173,7 +173,14 @@ function keyUp(e){
 function checkBlockCollision(){
 	for (x = 0; x < blocks.length; x++){
 		// Top
-		if (ball.y - ball.size*3 < blocks[x][3]){
+		if 
+		(
+			ball.y - ball.size*3 < blocks[x][3] && 
+			ball.x > blocks[x][2] && 
+			ball.x < blocks[x][2] + blocks[x][0] && 
+			blocks[x][4] == true
+		)
+		{
 			ball.dy *= -1;
 			blocks[x][4] = false;
 			break;
