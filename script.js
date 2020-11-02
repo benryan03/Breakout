@@ -4,7 +4,7 @@ var ctx = canvas.getContext("2d");
 const player = {
 	w: 160,
 	h: 20,
-	x: 0,
+	x: 300,
 	y: 575,
 	speed: 10,
 	dx: 0,
@@ -12,9 +12,9 @@ const player = {
 };
 
 const ball = {
-	x: 10,
-	y: 200,
-	size: 10,
+	x: 10,		// Center x
+	y: 200,		// Center y
+	size: 10,	// Radius
 	dx: 5,
 	dy: 5
 }
@@ -66,6 +66,11 @@ var blocks = [
 	[95, 20, 505, 55, true],
 	[95, 20, 605, 55, true],
 	[90, 20, 705, 55, true]
+	
+
+	//[650, 20, 0, 100, true] //test
+
+
 ];
 
 function drawBlocks(){
@@ -172,19 +177,25 @@ function keyUp(e){
 
 function checkBlockCollision(){
 	for (x = 0; x < blocks.length; x++){
-		// Top
+		// Bottom edge of block
 		if 
 		(
-			ball.y - ball.size*3 < blocks[x][3] && 
-			ball.x > blocks[x][2] && 
-			ball.x < blocks[x][2] + blocks[x][0] && 
-			blocks[x][4] == true
+			//[650, 20, 0, 100, true] //test
+			ball.y - ball.size == blocks[x][3] + blocks[x][1] &&	// Top "point" of ball is above block bottom edge
+			ball.x - ball.size >= blocks[x][2] && 					// Top "point" of ball is right of left side of block
+			ball.x - ball.size <= blocks[x][2] + blocks[x][0] && 	// Top "point" of ball is left of right side of block
+			blocks[x][4] == true									// Block was visible
 		)
 		{
+			console.log("test");
 			ball.dy *= -1;
 			blocks[x][4] = false;
 			break;
 		}
+
+		
+		// Top edge of block
+
 	}
 }
 
