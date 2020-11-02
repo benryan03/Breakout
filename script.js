@@ -13,7 +13,7 @@ const player = {
 
 const ball = {
 	x: 10,		// Center x
-	y: 200,		// Center y
+	y: 250,		// Center y
 	size: 10,	// Radius
 	dx: 5,
 	dy: 5
@@ -31,55 +31,107 @@ function drawBall(){
 	ctx.beginPath();
 	ctx.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2);
 	ctx.stroke();
-	ctx.fillStyle = "green";
+	ctx.fillStyle = "blue";
 	ctx.fill();
 }
 
 // [w, h, x, y, visible]
 var blocks = [
 	// Row 1
-	[95, 20, 005, 5, true],
-	[95, 20, 105, 5, true],
-	[95, 20, 205, 5, true],
-	[95, 20, 305, 5, true],
-	[95, 20, 405, 5, true],
-	[95, 20, 505, 5, true],
-	[95, 20, 605, 5, true],
-	[90, 20, 705, 5, true],
+	[95, 20, 005, 5, true, "red"],
+	[95, 20, 105, 5, true, "red"],
+	[95, 20, 205, 5, true, "red"],
+	[95, 20, 305, 5, true, "red"],
+	[95, 20, 405, 5, true, "red"],
+	[95, 20, 505, 5, true, "red"],
+	[95, 20, 605, 5, true, "red"],
+	[90, 20, 705, 5, true, "red"],
 
 	// Row 2
-	[95, 20, 005, 30, true],
-	[95, 20, 105, 30, true],
-	[95, 20, 205, 30, true],
-	[95, 20, 305, 30, true],
-	[95, 20, 405, 30, true],
-	[95, 20, 505, 30, true],
-	[95, 20, 605, 30, true],
-	[90, 20, 705, 30, true],
+	[95, 20, 005, 30, true, "red"],
+	[95, 20, 105, 30, true, "red"],
+	[95, 20, 205, 30, true, "red"],
+	[95, 20, 305, 30, true, "red"],
+	[95, 20, 405, 30, true, "red"],
+	[95, 20, 505, 30, true, "red"],
+	[95, 20, 605, 30, true, "red"],
+	[90, 20, 705, 30, true, "red"],
 
 	// Row 3
-	[95, 20, 005, 55, true],
-	[95, 20, 105, 55, true],
-	[95, 20, 205, 55, true],
-	[95, 20, 305, 55, true],
-	[95, 20, 405, 55, true],
-	[95, 20, 505, 55, true],
-	[95, 20, 605, 55, true],
-	[90, 20, 705, 55, true]
+	[95, 20, 005, 55, true, "orange"],
+	[95, 20, 105, 55, true, "orange"],
+	[95, 20, 205, 55, true, "orange"],
+	[95, 20, 305, 55, true, "orange"],
+	[95, 20, 405, 55, true, "orange"],
+	[95, 20, 505, 55, true, "orange"],
+	[95, 20, 605, 55, true, "orange"],
+	[90, 20, 705, 55, true, "orange"],
+
+	// Row 4
+	[95, 20, 005, 80, true, "orange"],
+	[95, 20, 105, 80, true, "orange"],
+	[95, 20, 205, 80, true, "orange"],
+	[95, 20, 305, 80, true, "orange"],
+	[95, 20, 405, 80, true, "orange"],
+	[95, 20, 505, 80, true, "orange"],
+	[95, 20, 605, 80, true, "orange"],
+	[90, 20, 705, 80, true, "orange"],
+
+	// Row 5
+	[95, 20, 005, 105, true, "green"],
+	[95, 20, 105, 105, true, "green"],
+	[95, 20, 205, 105, true, "green"],
+	[95, 20, 305, 105, true, "green"],
+	[95, 20, 405, 105, true, "green"],
+	[95, 20, 505, 105, true, "green"],
+	[95, 20, 605, 105, true, "green"],
+	[90, 20, 705, 105, true, "green"],
+
+	// Row 6
+	[95, 20, 005, 130, true, "green"],
+	[95, 20, 105, 130, true, "green"],
+	[95, 20, 205, 130, true, "green"],
+	[95, 20, 305, 130, true, "green"],
+	[95, 20, 405, 130, true, "green"],
+	[95, 20, 505, 130, true, "green"],
+	[95, 20, 605, 130, true, "green"],
+	[90, 20, 705, 130, true, "green"],
+
+	// Row 7
+	[95, 20, 005, 155, true, "yellow"],
+	[95, 20, 105, 155, true, "yellow"],
+	[95, 20, 205, 155, true, "yellow"],
+	[95, 20, 305, 155, true, "yellow"],
+	[95, 20, 405, 155, true, "yellow"],
+	[95, 20, 505, 155, true, "yellow"],
+	[95, 20, 605, 155, true, "yellow"],
+	[90, 20, 705, 155, true, "yellow"],
+
+	// Row 8
+	[95, 20, 005, 180, true, "yellow"],
+	[95, 20, 105, 180, true, "yellow"],
+	[95, 20, 205, 180, true, "yellow"],
+	[95, 20, 305, 180, true, "yellow"],
+	[95, 20, 405, 180, true, "yellow"],
+	[95, 20, 505, 180, true, "yellow"],
+	[95, 20, 605, 180, true, "yellow"],
+	[90, 20, 705, 180, true, "yellow"]
 ];
 
 function drawBlocks(){
-	ctx.beginPath();
 
 	blocks.forEach(x => {
 		if (x[4] == true){
-			ctx.rect(x[2], x[3], x[0], x[1])
+
+			ctx.beginPath();
+			ctx.rect(x[2], x[3], x[0], x[1]);
+			ctx.stroke();
+			ctx.fillStyle = x[5];
+			ctx.fill();
 		}
 	});
 
-	ctx.stroke();
-	ctx.fillStyle = "red";
-	ctx.fill();
+
 }
 
 function clear(){
@@ -97,6 +149,7 @@ function newPos(){
 }
 
 function detectWalls(){
+	// Player
 	// Left
 	if (player.x < 0){
 		player.x = 0;
@@ -139,12 +192,8 @@ function detectWalls(){
 		var ballOffset = (ballPos - playerCenter) / (player.w / 2);
 		ball.dx = ballOffset * 5; 	// Change angle
 		ball.dx.toFixed(2);
-		console.log(ball.dx);
-
-
-
+		//console.log(ball.dx);
 	}
-
 }
 
 function update(){
@@ -197,6 +246,7 @@ function checkBlockCollision(){
 			blocks[x][4] == true									// Block was visible
 		)
 		{
+			console.log("bottom");
 			ball.dy *= -1;
 			blocks[x][4] = false;
 			break;
@@ -204,18 +254,20 @@ function checkBlockCollision(){
 
 		// Top edge of block
 		if 
-		(
+		(			
 			ball.y + ball.size == blocks[x][3] &&					// Bottom "point" of ball is at block top edge
 			ball.x + ball.size >= blocks[x][2] && 					// Bottom "point" of ball is right of left side of block
 			ball.x + ball.size <= blocks[x][2] + blocks[x][0] && 	// Bottom "point" of ball is left of right side of block
 			blocks[x][4] == true									// Block was visible
 		)
 		{
+			console.log("top");
 			ball.dy *= -1;
 			blocks[x][4] = false;
 			break;
 		}
 
+		/*
 		// Left edge of block
 		if 
 		(
@@ -225,7 +277,9 @@ function checkBlockCollision(){
 			blocks[x][4] == true									// Block was visible
 		)
 		{
-			ball.dy *= -1;
+			console.log("left");
+			console.log(blocks[x]);
+			ball.dx *= -1;
 			blocks[x][4] = false;
 			break;
 		}
@@ -233,16 +287,19 @@ function checkBlockCollision(){
 		// Right edge of block
 		if 
 		(
-			ball.x - ball.size == blocks[x][0] &&					// Left "point" of ball is at block right edge
+			ball.x - ball.size == blocks[x][2] + blocks[x][0] &&	// Left "point" of ball is at block right edge
 			ball.x - ball.size >= blocks[x][3] && 					// Left "point" of ball is below block top edge
 			ball.x - ball.size <= blocks[x][3] + blocks[x][1] && 	// Left "point" of ball is above block bottom edge
 			blocks[x][4] == true									// Block was visible
 		)
 		{
-			ball.dy *= -1;
+			console.log("right");
+			console.log(blocks[x]);
+			ball.dx *= -1;
 			blocks[x][4] = false;
 			break;
 		}
+		*/
 	}
 }
 
