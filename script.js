@@ -1,6 +1,10 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 
+var click = new Audio('click.mp3');
+var crack = new Audio('crack.mp3');
+
+
 const player = {
 	w: 160,
 	h: 20,
@@ -192,7 +196,8 @@ function detectWalls(){
 		var ballOffset = (ballPos - playerCenter) / (player.w / 2);
 		ball.dx = ballOffset * 5; 	// Change angle
 		ball.dx.toFixed(2);
-		//console.log(ball.dx);
+		console.log(ball.dx);
+		click.play();
 	}
 }
 
@@ -249,6 +254,7 @@ function checkBlockCollision(){
 			console.log("bottom");
 			ball.dy *= -1;
 			blocks[x][4] = false;
+			crack.play();
 			break;
 		}
 
@@ -264,6 +270,7 @@ function checkBlockCollision(){
 			console.log("top");
 			ball.dy *= -1;
 			blocks[x][4] = false;
+			crack.play();
 			break;
 		}
 
