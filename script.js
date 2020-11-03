@@ -4,6 +4,7 @@ var ctx = canvas.getContext("2d");
 var click = new Audio('click.mp3');
 var crack = new Audio('crack.mp3');
 
+var score = 0;
 
 const player = {
 	w: 160,
@@ -255,6 +256,7 @@ function checkBlockCollision(){
 			ball.dy *= -1;
 			blocks[x][4] = false;
 			crack.play();
+			updateScore(blocks[x][5]);
 			break;
 		}
 
@@ -271,6 +273,7 @@ function checkBlockCollision(){
 			ball.dy *= -1;
 			blocks[x][4] = false;
 			crack.play();
+			updateScore(blocks[x][5]);
 			break;
 		}
 
@@ -308,6 +311,24 @@ function checkBlockCollision(){
 		}
 		*/
 	}
+}
+
+function updateScore(blockColor){
+	if (blockColor == "yellow"){
+		score += 1;
+	}
+	else if (blockColor == "green"){
+		score += 3;
+	}
+	else if (blockColor == "orange"){
+		score += 5;
+	}
+	else if (blockColor == "red"){
+		score += 7;
+	}
+	
+	document.getElementById('score').innerHTML = "Score: " + score.toString();
+	
 }
 
 update();
