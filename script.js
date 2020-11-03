@@ -5,6 +5,7 @@ var click = new Audio('click.mp3');
 var crack = new Audio('crack.mp3');
 
 var score = 0;
+var lives = 3;
 
 const player = {
 	w: 160,
@@ -177,9 +178,8 @@ function detectWalls(){
 	}
 
 	// Bottom wall
-	if (ball.y + ball.size > canvas.height){
-		// Lose a life
-		//ball.dy *= -1;
+	if (ball.y + ball.size == canvas.height){
+		loseLife();
 	}
 
 	// Detect player
@@ -330,6 +330,19 @@ function updateScore(blockColor){
 	document.getElementById('score').innerHTML = "Score: " + score.toString();
 	
 }
+
+function loseLife(){
+	lives -= 1;
+	if (lives > 0){
+		document.getElementById('lives').innerHTML = "Lives: " + lives.toString();
+		ball.x = 10;
+		ball.y = 250;
+	}
+	else{
+		alert("Game over.");
+	}
+}
+
 
 update();
 
