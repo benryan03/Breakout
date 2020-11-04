@@ -1,0 +1,25 @@
+body {
+	background-color: lightgray;
+	vertical-align: middle;
+}
+
+#score {
+	font-size: 36pt;
+	float: left;
+}
+
+#lives {
+	font-size: 36pt;
+	float: right;
+}
+
+canvas {
+	border:1px solid black;
+	background-color: white;
+}
+
+#main {
+	
+	overflow: auto;
+	width: 802;
+}

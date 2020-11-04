@@ -3,28 +3,27 @@
 	<title>
 		Breakout
 	</title>
+	<link rel="stylesheet" type="text/css" href="default.css">
 </head>
-<body style="background-color: lightgray;">
+<body>
+	
 	<center>
+	<div id="main">
 
-		<div id="score"
-		style="font-size: 36pt;">
+		<span id="score">
 			Score: 0
-		</div>
+		</span>
 		
-		<div id="lives"
-		style="font-size: 36pt;">
+		<span id="lives">
 			Lives: 3
-		</div>
+		</span><br>
 		
-		<canvas 
-			id="canvas" 
-			width="800" 
-			height="600" 
-			style="border:1px solid #000000; background-color: white;"
-			>
+		<canvas id="canvas" width="800" height="600">
 		</canvas>
+
+	</div>
 	</center>
+
 	<script src="script.js"></script>
 </body>
 </html>

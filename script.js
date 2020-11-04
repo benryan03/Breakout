@@ -337,6 +337,8 @@ function loseLife(){
 		document.getElementById('lives').innerHTML = "Lives: " + lives.toString();
 		ball.x = 10;
 		ball.y = 250;
+		ball.dx = 5,
+		ball.dy = 5
 	}
 	else{
 		alert("Game over.");
