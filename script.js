@@ -1,8 +1,8 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 
-var click = new Audio('click.mp3');
-var crack = new Audio('crack.mp3');
+var click = new Audio('sounds/click.mp3');
+var crack = new Audio('sounds/crack.mp3');
 
 var score = 0;
 var lives = 3;
