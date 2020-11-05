@@ -5,12 +5,14 @@ body {
 
 #score {
 	font-size: 36pt;
+	font-family: Arial, Helvetica, sans-serif;
 	float: left;
 }
 
 #lives {
 	font-size: 36pt;
 	float: right;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 canvas {
@@ -19,7 +21,13 @@ canvas {
 }
 
 #main {
-	
 	overflow: auto;
 	width: 802;
+	font-size: 48pt;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#instructions {
+	font-size: 24pt;
+	font-family: Arial, Helvetica, sans-serif;
 }
