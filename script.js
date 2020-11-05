@@ -15,7 +15,7 @@ const player = {
 	speed: 10,
 	dx: 0,
 	dy: 0
-};
+}
 
 const ball = {
 	x: 10,		// Center x
@@ -41,9 +41,11 @@ function drawBall(){
 	ctx.fill();
 }
 
-// [w, h, x, y, visible]
 var blocks = [
-	// Row 1
+
+	// [w, h, x, y, visible]
+
+	// Top row
 	[95, 20, 005, 5, true, "red"],
 	[95, 20, 105, 5, true, "red"],
 	[95, 20, 205, 5, true, "red"],
@@ -113,7 +115,7 @@ var blocks = [
 	[95, 20, 605, 155, true, "yellow"],
 	[90, 20, 705, 155, true, "yellow"],
 
-	// Row 8
+	// RBottom row
 	[95, 20, 005, 180, true, "yellow"],
 	[95, 20, 105, 180, true, "yellow"],
 	[95, 20, 205, 180, true, "yellow"],
@@ -122,13 +124,11 @@ var blocks = [
 	[95, 20, 505, 180, true, "yellow"],
 	[95, 20, 605, 180, true, "yellow"],
 	[90, 20, 705, 180, true, "yellow"]
-];
+]
 
 function drawBlocks(){
-
 	blocks.forEach(x => {
 		if (x[4] == true){
-
 			ctx.beginPath();
 			ctx.rect(x[2], x[3], x[0], x[1]);
 			ctx.stroke();
@@ -136,38 +136,53 @@ function drawBlocks(){
 			ctx.fill();
 		}
 	});
-
-
 }
 
-function clear(){
+function clearCanvas(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function newPos(){
 	player.x += player.dx;
 	player.y += player.dy;
-	detectWalls();
-
 	ball.x += ball.dx;
 	ball.y += ball.dy;
-	checkBlockCollision();
 }
 
-function detectWalls(){
-	// Player
-	// Left
+function detectPlayerWallCollision(){
+	// Left wall
 	if (player.x < 0){
 		player.x = 0;
 	}
-	// Right
+	// Right wall
 	if (player.x + player.w > canvas.width){
 		player.x = canvas.width - player.w;
 	}
+}
 
+function detectPlayerBallCollision(){
+	if 
+	(
+		ball.y + ball.size == player.y && 
+		ball.x + ball.size > player.x && 
+		ball.x + ball.size < player.x + player.w
+	)
+{ 		// Bounce up
+		ball.dy *= -1;
 
+		// Calculate angle
+		var ballPos = (ball.x);
+		var playerCenter = player.x + (player.w / 2);
+		var ballOffset = (ballPos - playerCenter) / (player.w / 2);
+		
+		// Change angle
+		ball.dx = ballOffset * 5;
+		ball.dx.toFixed(2);
+		click.play();
+	}
+}
 
-	// Ball
+function detectBallWallCollision(){
 	// Side walls
 	if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0){
 		ball.dx *= -1
@@ -176,140 +191,38 @@ function detectWalls(){
 	if (ball.y - (ball.size*2) < 0){
 		ball.dy *= -1;
 	}
-
 	// Bottom wall
 	if (ball.y + ball.size == canvas.height){
 		loseLife();
 	}
-
-	// Detect player
-	if 
-	(
-		ball.y + ball.size == player.y && 			// Bottom edge of ball is top edge of player
-		ball.x + ball.size > player.x && 			// 
-		ball.x + ball.size < player.x + player.w	// 
-	)
-	{
-		ball.dy *= -1;
-		var ballPos = (ball.x);
-		var playerCenter = player.x + (player.w / 2);
-
-		var ballOffset = (ballPos - playerCenter) / (player.w / 2);
-		ball.dx = ballOffset * 5; 	// Change angle
-		ball.dx.toFixed(2);
-		console.log(ball.dx);
-		click.play();
-	}
 }
 
-function update(){
-	clear();
-	drawBall();
-	drawBlocks();
-	drawPlayer();
-	newPos();
-	requestAnimationFrame(update);
-}
-
-function moveRight(){
-	player.dx = player.speed;
-}
-
-function moveLeft(){
-	player.dx = -player.speed;
-}
-
-function keyDown(e){
-	console.log(e.key);
-	if (e.key == 'ArrowRight' || e.key == 'Right'){
-		moveRight();
-	}
-	else if (e.key == 'ArrowLeft' || e.key == 'Left'){
-		moveLeft();
-	}
-}
-
-function keyUp(e){
-	if (
-		e.key == 'Right' ||
-		e.key == 'ArrowRight' ||
-		e.key == 'Left' ||
-		e.key == 'ArrowLeft'
-	){
-		player.dx = 0;
-		player.dy = 0;
-	}
-}
-
-function checkBlockCollision(){
+function detectBallBlockCollision(){
 	for (x = 0; x < blocks.length; x++){
-		// Bottom edge of block
 		if 
 		(
-			ball.y - ball.size == blocks[x][3] + blocks[x][1] &&	// Top "point" of ball is at block bottom edge
-			ball.x - ball.size >= blocks[x][2] && 					// Top "point" of ball is right of left side of block
-			ball.x - ball.size <= blocks[x][2] + blocks[x][0] && 	// Top "point" of ball is left of right side of block
-			blocks[x][4] == true									// Block was visible
+			(
+				// Bottom edge of block
+				ball.y - ball.size == blocks[x][3] + blocks[x][1] &&	// Top point of ball is at block bottom edge
+				ball.x - ball.size >= blocks[x][2] && 					// Top point of ball is right of left side of block
+				ball.x - ball.size <= blocks[x][2] + blocks[x][0] && 	// Top point of ball is left of right side of block
+				blocks[x][4] == true									// Block was visible
+			) || 
+			(
+				// Top edge of block
+				ball.y + ball.size == blocks[x][3] &&					// Bottom point of ball is at block top edge
+				ball.x + ball.size >= blocks[x][2] && 					// Bottom point of ball is right of left side of block
+				ball.x + ball.size <= blocks[x][2] + blocks[x][0] && 	// Bottom point of ball is left of right side of block
+				blocks[x][4] == true									// Block was visible
+			)
 		)
 		{
-			console.log("bottom");
 			ball.dy *= -1;
 			blocks[x][4] = false;
 			crack.play();
 			updateScore(blocks[x][5]);
 			break;
 		}
-
-		// Top edge of block
-		if 
-		(			
-			ball.y + ball.size == blocks[x][3] &&					// Bottom "point" of ball is at block top edge
-			ball.x + ball.size >= blocks[x][2] && 					// Bottom "point" of ball is right of left side of block
-			ball.x + ball.size <= blocks[x][2] + blocks[x][0] && 	// Bottom "point" of ball is left of right side of block
-			blocks[x][4] == true									// Block was visible
-		)
-		{
-			console.log("top");
-			ball.dy *= -1;
-			blocks[x][4] = false;
-			crack.play();
-			updateScore(blocks[x][5]);
-			break;
-		}
-
-		/*
-		// Left edge of block
-		if 
-		(
-			ball.x + ball.size == blocks[x][2] &&					// Right "point" of ball is at block left edge
-			ball.x + ball.size >= blocks[x][3] && 					// Right "point" of ball is below block top edge
-			ball.x + ball.size <= blocks[x][3] + blocks[x][1] && 	// Right "point" of ball is above block bottom edge
-			blocks[x][4] == true									// Block was visible
-		)
-		{
-			console.log("left");
-			console.log(blocks[x]);
-			ball.dx *= -1;
-			blocks[x][4] = false;
-			break;
-		}
-
-		// Right edge of block
-		if 
-		(
-			ball.x - ball.size == blocks[x][2] + blocks[x][0] &&	// Left "point" of ball is at block right edge
-			ball.x - ball.size >= blocks[x][3] && 					// Left "point" of ball is below block top edge
-			ball.x - ball.size <= blocks[x][3] + blocks[x][1] && 	// Left "point" of ball is above block bottom edge
-			blocks[x][4] == true									// Block was visible
-		)
-		{
-			console.log("right");
-			console.log(blocks[x]);
-			ball.dx *= -1;
-			blocks[x][4] = false;
-			break;
-		}
-		*/
 	}
 }
 
@@ -326,9 +239,7 @@ function updateScore(blockColor){
 	else if (blockColor == "red"){
 		score += 7;
 	}
-	
 	document.getElementById('score').innerHTML = "Score: " + score.toString();
-	
 }
 
 function loseLife(){
@@ -345,6 +256,41 @@ function loseLife(){
 	}
 }
 
+function keyDown(e){
+	if (e.key == 'ArrowRight' || e.key == 'Right'){
+		// Move player right
+		player.dx = player.speed;
+	}
+	else if (e.key == 'ArrowLeft' || e.key == 'Left'){
+		// Move player left
+		player.dx = -player.speed;
+	}
+}
+
+function keyUp(e){
+	if (
+		e.key == 'Right' ||
+		e.key == 'ArrowRight' ||
+		e.key == 'Left' ||
+		e.key == 'ArrowLeft'
+	){
+		player.dx = 0;
+		player.dy = 0;
+	}
+}
+
+function update(){
+	clearCanvas();
+	drawBall();
+	drawBlocks();
+	drawPlayer();
+	newPos();
+	detectBallWallCollision();
+	detectBallBlockCollision();
+	detectPlayerWallCollision();
+	detectPlayerBallCollision();
+	requestAnimationFrame(update);
+}
 
 update();
 
