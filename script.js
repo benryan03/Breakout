@@ -6,6 +6,7 @@ var crack = new Audio('sounds/crack.mp3');
 
 var score = 0;
 var lives = 3;
+var gameActive = false;
 
 const player = {
 	w: 160,
@@ -292,7 +293,32 @@ function update(){
 	requestAnimationFrame(update);
 }
 
-update();
+function drawStartButton(){
+	ctx.beginPath();
+	ctx.rect(200, 150, 400, 200);
+	ctx.stroke();
+	ctx.fillStyle = "lightgray";
+	ctx.fill();
+
+	ctx.fillStyle = "black";
+	ctx.font = "60px Arial";
+	ctx.textAlign = "center";
+	ctx.fillText("START", 400, 250);
+
+	ctx.font = "30px Arial";
+	ctx.textAlign = "center";
+	ctx.fillText("Move: arrow keys", 400, 300);
+}
+
+function startGame(){
+	update();
+}
+
+drawBall();
+drawBlocks();
+drawPlayer();
+drawStartButton();
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+canvas.onclick = startGame;
